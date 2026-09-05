@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jawad Ali — Data Science Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F5F6F8;
+    --surface: #FFFFFF;
+    --line: #E2E5EA;
+    --ink: #171B21;
+    --muted: #5C6470;
+    --accent: #1F3A5F;
+    --accent-soft: #EAF0F6;
+    --highlight: #B8763A;
+    --font-sans: 'IBM Plex Sans', -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section{ scroll-margin-top: 84px; }
+
+  h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 28px;
+  }
+
+  /* ---------- Nav ---------- */
+
+  .nav{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(245,246,248,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    gap: 16px;
+  }
+
+  .nav-name{
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav-links{
+    display: flex;
+    gap: 22px;
+    font-size: 0.92rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a{
+    text-decoration: none;
+    color: var(--muted);
+    transition: color 0.15s ease;
+  }
+
+  .nav-links a:hover{ color: var(--accent); }
+
+  /* ---------- Buttons ---------- */
+
+  .btn{
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 11px 20px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .btn-primary{
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-primary:hover{ background: #16283F; }
+
+  .btn-secondary{
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  .btn-secondary:hover{ border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    padding: 68px 0 48px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: rise 0.6s ease-out 0.1s forwards;
+  }
+
+  @keyframes rise{ to{ opacity: 1; transform: translateY(0); } }
+
+  .badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--highlight);
+    background: rgba(184,118,58,0.1);
+    padding: 5px 11px;
+    border-radius: 4px;
+    margin-bottom: 22px;
+  }
+
+  .badge::before{
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--highlight);
+  }
+
+  .hero h1{
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    max-width: 18ch;
+    margin: 0 0 20px;
+  }
+
+  .hero p{
+    font-size: 1.06rem;
+    color: var(--muted);
+    max-width: 58ch;
+    margin: 0 0 32px;
+  }
+
+  .hero-actions{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+  }
+
+  .stat-row{
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--line);
+    padding-top: 28px;
+  }
+
+  .stat{ min-width: 100px; }
+
+  .stat-num{
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .stat-label{
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* ---------- About ---------- */
+
+  .about{ padding: 8px 0 56px; }
+
+  .about p{
+    font-size: 1.02rem;
+    color: var(--ink);
+    max-width: 68ch;
+  }
+
+  /* ---------- Skills ---------- */
+
+  .skills{ padding: 8px 0 56px; }
+
+  .skill-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 40px;
+  }
+
+  .skill-group h3{
+    font-size: 0.98rem;
+    font-weight: 600;
+    margin: 0 0 12px;
+  }
+
+  .tag-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag{
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+
+  /* ---------- Projects ---------- */
+
+  .projects{ padding: 8px 0 56px; }
+
+  .project-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 22px;
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s ease;
+  }
+
+  .card:hover{ border-color: var(--accent); }
+
+  .card-title{
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .card-desc{
+    font-size: 0.94rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+
+  .card-foot{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+  }
+
+  .card-tags{
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--muted);
+  }
+
+  .card-link{
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* ---------- Education ---------- */
+
+  .education{ padding: 8px 0 56px; }
+
+  .edu-card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+  }
+
+  .edu-degree{ font-weight: 600; font-size: 1.02rem; margin-bottom: 4px; }
+  .edu-meta{ color: var(--muted); font-size: 0.92rem; }
+  .edu-note{
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--highlight);
+    margin-top: 12px;
+  }
+
+  /* ---------- Contact ---------- */
+
+  .contact{ padding: 8px 0 64px; }
+
+  .contact-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .contact-info p{ color: var(--muted); margin-bottom: 24px; max-width: 40ch; }
+
+  .contact-links{ display: flex; flex-direction: column; gap: 10px; }
+
+  .contact-links a{
+    text-decoration: none;
+    font-size: 0.96rem;
+    font-weight: 500;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .contact-links a:hover{ color: var(--accent); border-color: var(--accent); }
+
+  form{ display: flex; flex-direction: column; gap: 14px; }
+
+  input, textarea{
+    font-family: var(--font-sans);
+    font-size: 0.94rem;
+    padding: 11px 13px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  textarea{ resize: vertical; min-height: 100px; }
+
+  /* ---------- Footer ---------- */
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 24px 0 40px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  footer a{ text-decoration: none; color: var(--muted); }
+  footer a:hover{ color: var(--accent); }
+
+  @media (max-width: 640px){
+    .skill-grid, .project-grid, .contact-grid{ grid-template-columns: 1fr; }
+    .hero{ padding: 44px 0 32px; }
+    section{ scroll-margin-top: 64px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero{ animation: none; opacity: 1; transform: none; }
+    *{ transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-row">
+    <a class="nav-name" href="#top">Jawad Ali</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+
+  <section class="hero">
+    <div class="badge">Open to internships &amp; entry-level roles</div>
+    <h1>I build data science projects that turn raw datasets into clear, usable insights.</h1>
+    <p>Data science student with hands-on experience across ten independent projects — spanning finance, retail, education, and public transit data — using Python, pandas, and scikit-learn.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">View Projects</a>
+      <a class="btn btn-secondary" href="#contact">Get in Touch</a>
+    </div>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-num">10</div>
+        <div class="stat-label">Projects built</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Domains explored</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Core tools</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <h2>About</h2>
+    <p>I'm a data science student focused on practical, end-to-end analysis — cleaning raw datasets, visualizing what they show, and building models that answer a specific question. Every project on this page follows that same process, applied to a different domain: bank transactions, employee salaries, e-commerce sales, student exam scores, public bus routes, and more. I use each one to get sharper at the fundamentals — data cleaning, exploratory analysis, visualization, and applied machine learning.</p>
+  </section>
+
+  <section class="skills" id="skills">
+    <h2>Skills</h2>
+    <div class="skill-grid">
+      <div class="skill-group">
+        <h3>Data Analysis</h3>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">Exploratory Data Analysis</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Visualization</h3>
+        <div class="tag-list">
+          <span class="tag">Matplotlib</span>
+          <span class="tag">Seaborn</span>
+          <span class="tag">Dashboard Design</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Machine Learning</h3>
+        <div class="tag-list">
+          <span class="tag">scikit-learn</span>
+          <span class="tag">Regression</span>
+          <span class="tag">Classification</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Tools &amp; Workflow</h3>
+        <div class="tag-list">
+          <span class="tag">Jupyter Notebook</span>
+          <span class="tag">Git &amp; GitHub</span>
+          <span class="tag">Data Cleaning</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects" id="projects">
+    <h2>Projects</h2>
+    <div class="project-grid">
+
+      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Bank_Analysis" target="_blank" rel="noopener">
+        <div class="card-title">Bank Analysis</div>
+        <div class="card-desc">Digging into bank transaction data to find patterns in account activity and customer spending behavior.</div>
+        <div class="card-foot">
+          <span class="card-tags">Python, pandas, matplotlib</span>
+          <span class="card-link">GitHub</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Digita_Lifestyle_%20Productivity%20_%26_%20Screen%20Behavior_%20Analysis" target="_blank" rel="noopener">
+        <div class="card-title">Digital Lifestyle &amp; Screen Behavior Analysis</div>
+        <div class="card-desc">Looking at how screen time and digital habits line up with self-reported productivity and daily routines.</div>
+        <div class="card-foot">
+          <span class="card-tags">Python, pandas, seaborn</span>
+          <span class="card-link">GitHub</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/E-Commerce_Sales_Analysis_Dashboard" target="_blank" rel="noopener">
+        <div class="card-title">E-Commerce Sales Analysis Dashboard</div>
+        <div class="card-desc">A dashboard breaking down e-commerce sales by product, region, and time, built to make trends easy to scan at a glance.</div>
+        <div class="card-foot">
+          <span class="card-tags">Python, pandas, dashboarding</span>
+          <span class="card-link">GitHub</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Employee_Salary_Analysis" target="_blank" rel="noopener">
+        <div class="card-title">Employee Salary Analysis</div>
+        <div class="card-desc">Visualizing how salary spreads across roles, departments, and experience levels within a company dataset.</div>
+        <div class="card-foot">
+          <span class="card-tags">Python, pandas, matplotlib</span>
+          <span class="card-link">GitHub</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Monthly_Sale_Analysis" target="_blank" rel="noopener">
+        <div class="card-title">Monthly Sale Analysis</div>
+        <div class="card-desc">Tracking month-over-month sales performance to spot seasonal swings and longer-term trends.</div>
+        <div class="card-foot">
+          <span class="card-tags">Python, pandas, matplotlib</span>
+          <span class="card-link">GitHub</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Netflix_data_visualization" target="_blank" rel="noopener">
+        <div class="card-title">Netflix Data Visualization</div>
+        <div class="card-desc">Exploring Netflix's content catalog — genres, release years, and ratings — through a series of visual breakdowns.</div>
+        <div class="card-foot">
+          <span class="card-tags">Python, pandas, seaborn</span>
+          <span class="card-link">GitHub</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Public_Bus_Route_Efficiency_Analysis" target="_blank" rel="noopener">
+        <div class="card-title">Public Bus Route Efficiency Analysis</div>
+        <div class="card-desc">Analyzing route timings and ridership data to flag where a public bus network is running inefficiently.</div>
+        <div class="card-foot">
+          <span class="card-tags">Python, pandas, matplotlib</span>
+          <span class="card-link">GitHub</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Sale_Data_Analyzer" target="_blank" rel="noopener">
+        <div class="card-title">Sale Data Analyzer</div>
+        <div class="card-desc">A general-purpose script for slicing and summarizing sales datasets on the fly.</div>
+        <div class="card-foot">
+          <span class="card-tags">Python, pandas</span>
+          <span class="card-link">GitHub</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Student_Exam_Data_Analysis" target="_blank" rel="noopener">
+        <div class="card-title">Student Exam Data Analysis</div>
+        <div class="card-desc">Examining exam score patterns across subjects and student groups to see where performance diverges.</div>
+        <div class="card-foot">
+          <span class="card-tags">Python, pandas, matplotlib</span>
+          <span class="card-link">GitHub</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/customer_purchase_predication_from_E-Commerce_Data" target="_blank" rel="noopener">
+        <div class="card-title">Customer Purchase Prediction from E-Commerce Data</div>
+        <div class="card-desc">A machine learning model that predicts whether a customer is likely to complete a purchase, trained on e-commerce behavior data.</div>
+        <div class="card-foot">
+          <span class="card-tags">Python, scikit-learn, pandas</span>
+          <span class="card-link">GitHub</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="education" id="education">
+    <h2>Education</h2>
+    <div class="edu-card">
+      <div class="edu-degree">Bachelor's in Computer Science</div>
+      <div class="edu-meta">Government Degree College, Buner</div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Get in Touch</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>Have a project idea, an opportunity, or a question about my work? Reach out directly or use the form.</p>
+        <div class="contact-links">
+          <a href="mailto:jawadbuniri@gmail.com">jawadbuniri@gmail.com</a>
+          <a href="https://github.com/Engr-Jawad" target="_blank" rel="noopener">github.com/Engr-Jawad</a>
+          <a href="https://www.linkedin.com/in/jawad-ali-857b3a409/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <form id="contactForm">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="message" placeholder="Message" required></textarea>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <span>&copy; 2026 Jawad Ali</span>
+    <a href="https://github.com/Engr-Jawad/Data-Science-Projects" target="_blank" rel="noopener">View source on GitHub</a>
+  </footer>
+
+</div>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = this.name.value;
+    var email = this.email.value;
+    var message = this.message.value;
+    var subject = encodeURIComponent('Portfolio contact from ' + name);
+    var body = encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')');
+    window.location.href = 'mailto:jawadbuniri@gmail.com?subject=' + subject + '&body=' + body;
+  });
+</script>
+
+</body>
+</html>
