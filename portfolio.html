@@ -1,622 +1,972 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jawad Ali — Data Science Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #F5F6F8;
-    --surface: #FFFFFF;
-    --line: #E2E5EA;
-    --ink: #171B21;
-    --muted: #5C6470;
-    --accent: #1F3A5F;
-    --accent-soft: #EAF0F6;
-    --highlight: #B8763A;
-    --font-sans: 'IBM Plex Sans', -apple-system, sans-serif;
-    --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
-  }
-
-  *{ box-sizing: border-box; }
-  html{ scroll-behavior: smooth; }
-
-  body{
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--font-sans);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  a{ color: inherit; }
-  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-  }
-
-  .wrap{
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  section{ scroll-margin-top: 84px; }
-
-  h2{
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin: 0 0 28px;
-  }
-
-  /* ---------- Nav ---------- */
-
-  .nav{
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    background: rgba(245,246,248,0.92);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .nav-row{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 0;
-    gap: 16px;
-  }
-
-  .nav-name{
-    font-weight: 600;
-    font-size: 1rem;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .nav-links{
-    display: flex;
-    gap: 22px;
-    font-size: 0.92rem;
-    flex-wrap: wrap;
-  }
-
-  .nav-links a{
-    text-decoration: none;
-    color: var(--muted);
-    transition: color 0.15s ease;
-  }
-
-  .nav-links a:hover{ color: var(--accent); }
-
-  /* ---------- Buttons ---------- */
-
-  .btn{
-    display: inline-block;
-    font-family: var(--font-sans);
-    font-size: 0.92rem;
-    font-weight: 500;
-    text-decoration: none;
-    padding: 11px 20px;
-    border-radius: 4px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-  }
-
-  .btn-primary{
-    background: var(--accent);
-    color: #fff;
-  }
-
-  .btn-primary:hover{ background: #16283F; }
-
-  .btn-secondary{
-    background: transparent;
-    color: var(--ink);
-    border-color: var(--line);
-  }
-
-  .btn-secondary:hover{ border-color: var(--accent); color: var(--accent); }
-
-  /* ---------- Hero ---------- */
-
-  .hero{
-    padding: 68px 0 48px;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: rise 0.6s ease-out 0.1s forwards;
-  }
-
-  @keyframes rise{ to{ opacity: 1; transform: translateY(0); } }
-
-  .badge{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--highlight);
-    background: rgba(184,118,58,0.1);
-    padding: 5px 11px;
-    border-radius: 4px;
-    margin-bottom: 22px;
-  }
-
-  .badge::before{
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--highlight);
-  }
-
-  .hero h1{
-    font-size: clamp(2rem, 4.5vw, 2.75rem);
-    font-weight: 700;
-    line-height: 1.18;
-    letter-spacing: -0.015em;
-    max-width: 18ch;
-    margin: 0 0 20px;
-  }
-
-  .hero p{
-    font-size: 1.06rem;
-    color: var(--muted);
-    max-width: 58ch;
-    margin: 0 0 32px;
-  }
-
-  .hero-actions{
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 44px;
-  }
-
-  .stat-row{
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-    border-top: 1px solid var(--line);
-    padding-top: 28px;
-  }
-
-  .stat{ min-width: 100px; }
-
-  .stat-num{
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: var(--accent);
-  }
-
-  .stat-label{
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-
-  /* ---------- About ---------- */
-
-  .about{ padding: 8px 0 56px; }
-
-  .about p{
-    font-size: 1.02rem;
-    color: var(--ink);
-    max-width: 68ch;
-  }
-
-  /* ---------- Skills ---------- */
-
-  .skills{ padding: 8px 0 56px; }
-
-  .skill-grid{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px 40px;
-  }
-
-  .skill-group h3{
-    font-size: 0.98rem;
-    font-weight: 600;
-    margin: 0 0 12px;
-  }
-
-  .tag-list{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .tag{
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 5px 10px;
-    border-radius: 4px;
-  }
-
-  /* ---------- Projects ---------- */
-
-  .projects{ padding: 8px 0 56px; }
-
-  .project-grid{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-  }
-
-  .card{
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-top: 3px solid var(--accent);
-    border-radius: 4px;
-    padding: 22px;
-    text-decoration: none;
-    color: var(--ink);
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.15s ease;
-  }
-
-  .card:hover{ border-color: var(--accent); }
-
-  .card-title{
-    font-size: 1.05rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  .card-desc{
-    font-size: 0.94rem;
-    color: var(--muted);
-    margin-bottom: 16px;
-    flex-grow: 1;
-  }
-
-  .card-foot{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    border-top: 1px solid var(--line);
-    padding-top: 12px;
-  }
-
-  .card-tags{
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    color: var(--muted);
-  }
-
-  .card-link{
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--accent);
-    white-space: nowrap;
-  }
-
-  /* ---------- Education ---------- */
-
-  .education{ padding: 8px 0 56px; }
-
-  .edu-card{
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 24px;
-  }
-
-  .edu-degree{ font-weight: 600; font-size: 1.02rem; margin-bottom: 4px; }
-  .edu-meta{ color: var(--muted); font-size: 0.92rem; }
-  .edu-note{
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--highlight);
-    margin-top: 12px;
-  }
-
-  /* ---------- Contact ---------- */
-
-  .contact{ padding: 8px 0 64px; }
-
-  .contact-grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-  }
-
-  .contact-info p{ color: var(--muted); margin-bottom: 24px; max-width: 40ch; }
-
-  .contact-links{ display: flex; flex-direction: column; gap: 10px; }
-
-  .contact-links a{
-    text-decoration: none;
-    font-size: 0.96rem;
-    font-weight: 500;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 8px;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-
-  .contact-links a:hover{ color: var(--accent); border-color: var(--accent); }
-
-  form{ display: flex; flex-direction: column; gap: 14px; }
-
-  input, textarea{
-    font-family: var(--font-sans);
-    font-size: 0.94rem;
-    padding: 11px 13px;
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    background: var(--surface);
-    color: var(--ink);
-  }
-
-  textarea{ resize: vertical; min-height: 100px; }
-
-  /* ---------- Footer ---------- */
-
-  footer{
-    border-top: 1px solid var(--line);
-    padding: 24px 0 40px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-
-  footer a{ text-decoration: none; color: var(--muted); }
-  footer a:hover{ color: var(--accent); }
-
-  @media (max-width: 640px){
-    .skill-grid, .project-grid, .contact-grid{ grid-template-columns: 1fr; }
-    .hero{ padding: 44px 0 32px; }
-    section{ scroll-margin-top: 64px; }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .hero{ animation: none; opacity: 1; transform: none; }
-    *{ transition: none !important; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jawad Ali · Data Science Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* --------------------------------------------
+       PRO VARIABLES & RESET
+    -------------------------------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f6f8fc;
+      --surface: #ffffff;
+      --line: #e2e8f0;
+      --ink: #0b1a2b;
+      --muted: #4a5b6e;
+      --accent: #1e3a5f;
+      --accent-soft: #eef3f9;
+      --gold: #b68b40;
+      --gold-soft: rgba(182, 139, 64, 0.08);
+      --radius: 10px;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.03);
+      --shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02);
+      --font-sans: 'Inter', -apple-system, system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 0 0 2px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    section {
+      scroll-margin-top: 88px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 28px;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: var(--gold);
+      margin-top: 8px;
+      border-radius: 4px;
+    }
+
+    /* --------------------------------------------
+       NAVIGATION
+    -------------------------------------------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(246, 248, 252, 0.85);
+      backdrop-filter: blur(8px) saturate(180%);
+      -webkit-backdrop-filter: blur(8px) saturate(180%);
+      border-bottom: 1px solid var(--line);
+      transition: box-shadow 0.2s;
+    }
+
+    .nav:hover {
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .nav-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      background: var(--accent);
+      color: white;
+      padding: 6px 16px 6px 14px;
+      border-radius: 30px;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    .nav-name:hover {
+      background: #132a44;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      transition: color 0.15s ease, border-bottom 0.15s;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--gold);
+    }
+
+    /* --------------------------------------------
+       HERO (with profile picture)
+    -------------------------------------------- */
+    .hero {
+      padding: 64px 0 48px;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .hero-content {
+      flex: 1 1 320px;
+    }
+
+    .hero-avatar {
+      flex: 0 0 140px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-avatar img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--surface);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), 0 0 0 1px var(--line);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background: var(--surface);
+    }
+
+    .hero-avatar img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 0 0 1px var(--accent);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-soft);
+      padding: 4px 14px 4px 12px;
+      border-radius: 30px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(182, 139, 64, 0.15);
+    }
+
+    .badge::before {
+      content: "●";
+      font-size: 0.5rem;
+      color: var(--gold);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4.2vw, 2.9rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      max-width: 14ch;
+      margin: 0 0 16px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+      border-bottom: 3px solid var(--gold);
+      padding-bottom: 2px;
+    }
+
+    .hero p {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 60ch;
+      margin: 0 0 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 44px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 12px 26px;
+      border-radius: 60px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: transparent;
+      text-decoration: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: #132a44;
+      border-color: #132a44;
+      transform: scale(0.97);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: #fafcff;
+      transform: scale(0.97);
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 32px;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-num {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 450;
+    }
+
+    /* --------------------------------------------
+       ABOUT
+    -------------------------------------------- */
+    .about {
+      padding: 12px 0 52px;
+    }
+
+    .about p {
+      font-size: 1.02rem;
+      color: var(--ink);
+      max-width: 70ch;
+      background: var(--surface);
+      padding: 28px 32px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-sm);
+      line-height: 1.7;
+    }
+
+    /* --------------------------------------------
+       SKILLS
+    -------------------------------------------- */
+    .skills {
+      padding: 12px 0 52px;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px 36px;
+    }
+
+    .skill-group {
+      background: var(--surface);
+      padding: 20px 22px 22px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-sm);
+      transition: border 0.15s;
+    }
+
+    .skill-group:hover {
+      border-color: var(--accent);
+    }
+
+    .skill-group h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 10px;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 5px 14px;
+      border-radius: 30px;
+      letter-spacing: 0.01em;
+      transition: background 0.15s;
+    }
+
+    .tag:hover {
+      background: #dce6f2;
+    }
+
+    /* --------------------------------------------
+       PROJECTS
+    -------------------------------------------- */
+    .projects {
+      padding: 12px 0 52px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px 24px 18px;
+      text-decoration: none;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+      height: 100%;
+      border-top: 3px solid var(--accent);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    .card-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      margin-top: 4px;
+    }
+
+    .card-tags {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: var(--bg);
+      padding: 3px 10px;
+      border-radius: 30px;
+    }
+
+    .card-link {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .card-link:hover {
+      color: var(--gold);
+    }
+
+    /* --------------------------------------------
+       EDUCATION
+    -------------------------------------------- */
+    .education {
+      padding: 12px 0 52px;
+    }
+
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .edu-degree {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .edu-meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+      background: var(--bg);
+      padding: 4px 14px;
+      border-radius: 30px;
+    }
+
+    /* --------------------------------------------
+       CONTACT
+    -------------------------------------------- */
+    .contact {
+      padding: 12px 0 56px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 48px;
+    }
+
+    .contact-info p {
+      color: var(--muted);
+      margin-bottom: 24px;
+      max-width: 36ch;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-links a {
+      font-weight: 500;
+      font-size: 0.95rem;
+      border-bottom: 1px solid var(--line);
+      padding: 6px 0 8px;
+      transition: color 0.15s, border-color 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .contact-links a:hover {
+      color: var(--accent);
+      border-color: var(--gold);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    input,
+    textarea {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      padding: 13px 16px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: var(--surface);
+      color: var(--ink);
+      transition: border 0.15s, box-shadow 0.15s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.08);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+      border-radius: 20px;
+    }
+
+    form .btn {
+      align-self: flex-start;
+      border-radius: 60px;
+      padding: 12px 32px;
+    }
+
+    /* --------------------------------------------
+       FOOTER
+    -------------------------------------------- */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 40px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    footer a {
+      font-weight: 500;
+      transition: color 0.15s;
+      border-bottom: 1px solid transparent;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--gold);
+    }
+
+    /* --------------------------------------------
+       RESPONSIVE
+    -------------------------------------------- */
+    @media (max-width: 720px) {
+      .hero-grid {
+        flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .hero-avatar {
+        flex: 0 0 auto;
+      }
+
+      .hero-avatar img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .hero h1 {
+        max-width: 100%;
+      }
+
+      .hero p {
+        max-width: 100%;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .stat-row {
+        justify-content: center;
+      }
+
+      .skill-grid,
+      .project-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 40px 0 28px;
+      }
+
+      .stat-row {
+        gap: 28px;
+      }
+
+      .nav-links {
+        gap: 16px;
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wrap {
+        padding: 0 16px;
+      }
+
+      .nav-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .nav-links {
+        gap: 12px;
+      }
+
+      .btn {
+        padding: 10px 18px;
+        font-size: 0.85rem;
+      }
+
+      .edu-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+      * {
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="wrap nav-row">
-    <a class="nav-name" href="#top">Jawad Ali</a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="wrap nav-row">
+      <a class="nav-name" href="#top">JA</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
     </div>
+  </nav>
+
+  <div class="wrap" id="top">
+
+    <!-- HERO with profile picture -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="badge">Open to internships &amp; entry-level roles</div>
+          <h1>I build <span>data science</span> projects that turn raw datasets into clear, usable insights.</h1>
+          <p>Data science student with hands-on experience across ten independent projects — spanning finance, retail, education, and public transit data — using Python, pandas, and scikit-learn.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">View Projects</a>
+            <a class="btn btn-secondary" href="#contact">Get in Touch</a>
+          </div>
+          <div class="stat-row">
+            <div class="stat">
+              <span class="stat-num">10</span>
+              <span class="stat-label">Projects built</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">8</span>
+              <span class="stat-label">Domains explored</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">5+</span>
+              <span class="stat-label">Core tools</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile picture -->
+        <div class="hero-avatar">
+          <img
+            src="jawad-ali.jpg"
+            alt="Jawad Ali profile photo"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <h2>About</h2>
+      <p>I'm Jawad Ali a data science student focused on practical, end-to-end analysis — cleaning raw datasets, visualizing what they show, and building models that answer a specific question. Every project on this page follows that same process, applied to a different domain: bank transactions, employee salaries, e-commerce sales, student exam scores, public bus routes, and more. I use each one to get sharper at the fundamentals — data cleaning, exploratory analysis, visualization, and applied machine learning.</p>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="skills" id="skills">
+      <h2>Skills</h2>
+      <div class="skill-grid">
+        <div class="skill-group">
+          <h3>Data Analysis</h3>
+          <div class="tag-list">
+            <span class="tag">Python</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">NumPy</span>
+            <span class="tag">EDA</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Visualization</h3>
+          <div class="tag-list">
+            <span class="tag">Matplotlib</span>
+            <span class="tag">Seaborn</span>
+            <span class="tag">Dashboard Design</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Machine Learning</h3>
+          <div class="tag-list">
+            <span class="tag">scikit-learn</span>
+            <span class="tag">Regression</span>
+            <span class="tag">Classification</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Tools &amp; Workflow</h3>
+          <div class="tag-list">
+            <span class="tag">Jupyter</span>
+            <span class="tag">Git &amp; GitHub</span>
+            <span class="tag">Data Cleaning</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="projects" id="projects">
+      <h2>Projects</h2>
+      <div class="project-grid">
+
+        <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Bank_Analysis" target="_blank" rel="noopener">
+          <div class="card-title">Bank Analysis</div>
+          <div class="card-desc">Digging into bank transaction data to find patterns in account activity and customer spending behavior.</div>
+          <div class="card-foot">
+            <span class="card-tags">Python, pandas, matplotlib</span>
+            <span class="card-link">GitHub →</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Digita_Lifestyle_%20Productivity_%20_%26_%20Screen_Behavior_%20Analysis" target="_blank" rel="noopener">
+          <div class="card-title">Digital Lifestyle &amp; Screen Behavior</div>
+          <div class="card-desc">Looking at how screen time and digital habits align with self‑reported productivity and daily routines.</div>
+          <div class="card-foot">
+            <span class="card-tags">Python, pandas, seaborn</span>
+            <span class="card-link">GitHub →</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/E-Commerce_Sales_Analysis_Dashboard" target="_blank" rel="noopener">
+          <div class="card-title">E‑Commerce Sales Dashboard</div>
+          <div class="card-desc">A dashboard breaking down e‑commerce sales by product, region, and time, built to make trends easy to scan.</div>
+          <div class="card-foot">
+            <span class="card-tags">Python, pandas, dashboard</span>
+            <span class="card-link">GitHub →</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Employee_Salary_Analysis" target="_blank" rel="noopener">
+          <div class="card-title">Employee Salary Analysis</div>
+          <div class="card-desc">Visualizing how salary spreads across roles, departments, and experience levels within a company dataset.</div>
+          <div class="card-foot">
+            <span class="card-tags">Python, pandas, matplotlib</span>
+            <span class="card-link">GitHub →</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Monthly_Sale_Analysis" target="_blank" rel="noopener">
+          <div class="card-title">Monthly Sale Analysis</div>
+          <div class="card-desc">Tracking month‑over‑month sales performance to spot seasonal swings and longer‑term trends.</div>
+          <div class="card-foot">
+            <span class="card-tags">Python, pandas, matplotlib</span>
+            <span class="card-link">GitHub →</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Netflix_data_visualization" target="_blank" rel="noopener">
+          <div class="card-title">Netflix Data Visualization</div>
+          <div class="card-desc">Exploring Netflix's content catalog — genres, release years, and ratings — through a series of visual breakdowns.</div>
+          <div class="card-foot">
+            <span class="card-tags">Python, pandas, seaborn</span>
+            <span class="card-link">GitHub →</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Public_Bus_Route_Efficiency_Analysis" target="_blank" rel="noopener">
+          <div class="card-title">Public Bus Route Efficiency</div>
+          <div class="card-desc">Analyzing route timings and ridership data to flag where a public bus network is running inefficiently.</div>
+          <div class="card-foot">
+            <span class="card-tags">Python, pandas, matplotlib</span>
+            <span class="card-link">GitHub →</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Sale_Data_Analyzer" target="_blank" rel="noopener">
+          <div class="card-title">Sale Data Analyzer</div>
+          <div class="card-desc">A general‑purpose script for slicing and summarizing sales datasets on the fly.</div>
+          <div class="card-foot">
+            <span class="card-tags">Python, pandas</span>
+            <span class="card-link">GitHub →</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Student_Exam_Data_Analysis" target="_blank" rel="noopener">
+          <div class="card-title">Student Exam Data Analysis</div>
+          <div class="card-desc">Examining exam score patterns across subjects and student groups to see where performance diverges.</div>
+          <div class="card-foot">
+            <span class="card-tags">Python, pandas, matplotlib</span>
+            <span class="card-link">GitHub →</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/customer_purchase_predication_from_E-Commerce_Data" target="_blank" rel="noopener">
+          <div class="card-title">Customer Purchase Prediction</div>
+          <div class="card-desc">A machine learning model that predicts whether a customer is likely to complete a purchase, trained on e‑commerce behavior data.</div>
+          <div class="card-foot">
+            <span class="card-tags">Python, scikit‑learn, pandas</span>
+            <span class="card-link">GitHub →</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="education" id="education">
+      <h2>Education</h2>
+      <div class="edu-card">
+        <span class="edu-degree">Bachelor's in Computer Science</span>
+        <span class="edu-meta">Government Degree College, Buner</span>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <h2>Get in Touch</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p>Have a project idea, an opportunity, or a question about my work? Reach out directly or use the form.</p>
+          <div class="contact-links">
+            <a href="mailto:jawadbuniri@gmail.com">✉ jawadbuniri@gmail.com</a>
+            <a href="https://github.com/Engr-Jawad" target="_blank" rel="noopener">⌨ github.com/Engr-Jawad</a>
+            <a href="https://www.linkedin.com/in/jawad-ali-857b3a409/" target="_blank" rel="noopener">🔗 LinkedIn</a>
+          </div>
+        </div>
+        <form id="contactForm">
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Your email" required />
+          <textarea name="message" placeholder="Tell me about your project or opportunity…" required></textarea>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <span>&copy; 2026 Jawad Ali</span>
+      <a href="https://github.com/Engr-Jawad/Data-Science-Projects" target="_blank" rel="noopener">View source on GitHub</a>
+    </footer>
+
   </div>
-</nav>
 
-<div class="wrap" id="top">
-
-  <section class="hero">
-    <div class="badge">Open to internships &amp; entry-level roles</div>
-    <h1>I build data science projects that turn raw datasets into clear, usable insights.</h1>
-    <p>Data science student with hands-on experience across ten independent projects — spanning finance, retail, education, and public transit data — using Python, pandas, and scikit-learn.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#projects">View Projects</a>
-      <a class="btn btn-secondary" href="#contact">Get in Touch</a>
-    </div>
-    <div class="stat-row">
-      <div class="stat">
-        <div class="stat-num">10</div>
-        <div class="stat-label">Projects built</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">8</div>
-        <div class="stat-label">Domains explored</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">5+</div>
-        <div class="stat-label">Core tools</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="about" id="about">
-    <h2>About</h2>
-    <p>I'm a data science student focused on practical, end-to-end analysis — cleaning raw datasets, visualizing what they show, and building models that answer a specific question. Every project on this page follows that same process, applied to a different domain: bank transactions, employee salaries, e-commerce sales, student exam scores, public bus routes, and more. I use each one to get sharper at the fundamentals — data cleaning, exploratory analysis, visualization, and applied machine learning.</p>
-  </section>
-
-  <section class="skills" id="skills">
-    <h2>Skills</h2>
-    <div class="skill-grid">
-      <div class="skill-group">
-        <h3>Data Analysis</h3>
-        <div class="tag-list">
-          <span class="tag">Python</span>
-          <span class="tag">Pandas</span>
-          <span class="tag">NumPy</span>
-          <span class="tag">Exploratory Data Analysis</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Visualization</h3>
-        <div class="tag-list">
-          <span class="tag">Matplotlib</span>
-          <span class="tag">Seaborn</span>
-          <span class="tag">Dashboard Design</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Machine Learning</h3>
-        <div class="tag-list">
-          <span class="tag">scikit-learn</span>
-          <span class="tag">Regression</span>
-          <span class="tag">Classification</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Tools &amp; Workflow</h3>
-        <div class="tag-list">
-          <span class="tag">Jupyter Notebook</span>
-          <span class="tag">Git &amp; GitHub</span>
-          <span class="tag">Data Cleaning</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="projects" id="projects">
-    <h2>Projects</h2>
-    <div class="project-grid">
-
-      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Bank_Analysis" target="_blank" rel="noopener">
-        <div class="card-title">Bank Analysis</div>
-        <div class="card-desc">Digging into bank transaction data to find patterns in account activity and customer spending behavior.</div>
-        <div class="card-foot">
-          <span class="card-tags">Python, pandas, matplotlib</span>
-          <span class="card-link">GitHub</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Digita_Lifestyle_%20Productivity%20_%26_%20Screen%20Behavior_%20Analysis" target="_blank" rel="noopener">
-        <div class="card-title">Digital Lifestyle &amp; Screen Behavior Analysis</div>
-        <div class="card-desc">Looking at how screen time and digital habits line up with self-reported productivity and daily routines.</div>
-        <div class="card-foot">
-          <span class="card-tags">Python, pandas, seaborn</span>
-          <span class="card-link">GitHub</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/E-Commerce_Sales_Analysis_Dashboard" target="_blank" rel="noopener">
-        <div class="card-title">E-Commerce Sales Analysis Dashboard</div>
-        <div class="card-desc">A dashboard breaking down e-commerce sales by product, region, and time, built to make trends easy to scan at a glance.</div>
-        <div class="card-foot">
-          <span class="card-tags">Python, pandas, dashboarding</span>
-          <span class="card-link">GitHub</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Employee_Salary_Analysis" target="_blank" rel="noopener">
-        <div class="card-title">Employee Salary Analysis</div>
-        <div class="card-desc">Visualizing how salary spreads across roles, departments, and experience levels within a company dataset.</div>
-        <div class="card-foot">
-          <span class="card-tags">Python, pandas, matplotlib</span>
-          <span class="card-link">GitHub</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Monthly_Sale_Analysis" target="_blank" rel="noopener">
-        <div class="card-title">Monthly Sale Analysis</div>
-        <div class="card-desc">Tracking month-over-month sales performance to spot seasonal swings and longer-term trends.</div>
-        <div class="card-foot">
-          <span class="card-tags">Python, pandas, matplotlib</span>
-          <span class="card-link">GitHub</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Netflix_data_visualization" target="_blank" rel="noopener">
-        <div class="card-title">Netflix Data Visualization</div>
-        <div class="card-desc">Exploring Netflix's content catalog — genres, release years, and ratings — through a series of visual breakdowns.</div>
-        <div class="card-foot">
-          <span class="card-tags">Python, pandas, seaborn</span>
-          <span class="card-link">GitHub</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Public_Bus_Route_Efficiency_Analysis" target="_blank" rel="noopener">
-        <div class="card-title">Public Bus Route Efficiency Analysis</div>
-        <div class="card-desc">Analyzing route timings and ridership data to flag where a public bus network is running inefficiently.</div>
-        <div class="card-foot">
-          <span class="card-tags">Python, pandas, matplotlib</span>
-          <span class="card-link">GitHub</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Sale_Data_Analyzer" target="_blank" rel="noopener">
-        <div class="card-title">Sale Data Analyzer</div>
-        <div class="card-desc">A general-purpose script for slicing and summarizing sales datasets on the fly.</div>
-        <div class="card-foot">
-          <span class="card-tags">Python, pandas</span>
-          <span class="card-link">GitHub</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/Student_Exam_Data_Analysis" target="_blank" rel="noopener">
-        <div class="card-title">Student Exam Data Analysis</div>
-        <div class="card-desc">Examining exam score patterns across subjects and student groups to see where performance diverges.</div>
-        <div class="card-foot">
-          <span class="card-tags">Python, pandas, matplotlib</span>
-          <span class="card-link">GitHub</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://github.com/Engr-Jawad/Data-Science-Projects/tree/main/customer_purchase_predication_from_E-Commerce_Data" target="_blank" rel="noopener">
-        <div class="card-title">Customer Purchase Prediction from E-Commerce Data</div>
-        <div class="card-desc">A machine learning model that predicts whether a customer is likely to complete a purchase, trained on e-commerce behavior data.</div>
-        <div class="card-foot">
-          <span class="card-tags">Python, scikit-learn, pandas</span>
-          <span class="card-link">GitHub</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <section class="education" id="education">
-    <h2>Education</h2>
-    <div class="edu-card">
-      <div class="edu-degree">Bachelor's in Computer Science</div>
-      <div class="edu-meta">Government Degree College, Buner</div>
-    </div>
-  </section>
-
-  <section class="contact" id="contact">
-    <h2>Get in Touch</h2>
-    <div class="contact-grid">
-      <div class="contact-info">
-        <p>Have a project idea, an opportunity, or a question about my work? Reach out directly or use the form.</p>
-        <div class="contact-links">
-          <a href="mailto:jawadbuniri@gmail.com">jawadbuniri@gmail.com</a>
-          <a href="https://github.com/Engr-Jawad" target="_blank" rel="noopener">github.com/Engr-Jawad</a>
-          <a href="https://www.linkedin.com/in/jawad-ali-857b3a409/" target="_blank" rel="noopener">LinkedIn</a>
-        </div>
-      </div>
-      <form id="contactForm">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <textarea name="message" placeholder="Message" required></textarea>
-        <button type="submit" class="btn btn-primary">Send Message</button>
-      </form>
-    </div>
-  </section>
-
-  <footer>
-    <span>&copy; 2026 Jawad Ali</span>
-    <a href="https://github.com/Engr-Jawad/Data-Science-Projects" target="_blank" rel="noopener">View source on GitHub</a>
-  </footer>
-
-</div>
-
-<script>
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    var name = this.name.value;
-    var email = this.email.value;
-    var message = this.message.value;
-    var subject = encodeURIComponent('Portfolio contact from ' + name);
-    var body = encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')');
-    window.location.href = 'mailto:jawadbuniri@gmail.com?subject=' + subject + '&body=' + body;
-  });
-</script>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name = this.name.value;
+      var email = this.email.value;
+      var message = this.message.value;
+      var subject = encodeURIComponent('Portfolio contact from ' + name);
+      var body = encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')');
+      window.location.href = 'mailto:jawadbuniri@gmail.com?subject=' + subject + '&body=' + body;
+    });
+  </script>
 
 </body>
 </html>
