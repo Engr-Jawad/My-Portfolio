@@ -961,16 +961,24 @@
   </div>
 
   <script>
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var name = this.name.value;
-      var email = this.email.value;
-      var message = this.message.value;
-      var subject = encodeURIComponent('Portfolio contact from ' + name);
-      var body = encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')');
-      window.location.href = 'mailto:jawadbuniri@gmail.com?subject=' + subject + '&body=' + body;
-    });
-  </script>
+  document.getElementById('contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var form = this;
+    var data = new FormData(form);
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString()
+    })
+      .then(function () {
+        form.innerHTML = '<p style="color: var(--accent); font-weight:600;">Thanks! Your message has been sent — I\'ll get back to you soon.</p>';
+      })
+      .catch(function () {
+        alert('Something went wrong. Please email me directly at jawadbuniri@gmail.com');
+      });
+  });
+</script>
 
 </body>
 </html>
