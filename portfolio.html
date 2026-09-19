@@ -940,12 +940,16 @@
             <a href="https://www.linkedin.com/in/jawad-ali-857b3a409/" target="_blank" rel="noopener">🔗 LinkedIn</a>
           </div>
         </div>
-        <form id="contactForm">
-          <input type="text" name="name" placeholder="Your name" required />
-          <input type="email" name="email" placeholder="Your email" required />
-          <textarea name="message" placeholder="Tell me about your project or opportunity…" required></textarea>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-        </form>
+        <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+  <input type="hidden" name="form-name" value="contact" />
+  <p style="display:none;">
+    <label>Don't fill this out: <input name="bot-field" /></label>
+  </p>
+  <input type="text" name="name" placeholder="Your name" required />
+  <input type="email" name="email" placeholder="Your email" required />
+  <textarea name="message" placeholder="Tell me about your project or opportunity…" required></textarea>
+  <button type="submit" class="btn btn-primary">Send Message</button>
+</form>
       </div>
     </section>
 
